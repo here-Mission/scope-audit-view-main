@@ -419,14 +419,20 @@ export const useAuditData = () => {
         setLoading(true);
         setError(null);
 
-        const blobSasUrl = import.meta.env.VITE_AZURE_BLOB_SAS_URL;
+        // const blobSasUrl = import.meta.env.VITE_AZURE_BLOB_SAS_URL;
         
-        if (!blobSasUrl) {
-          throw new Error('Azure Blob SAS URL not configured in environment variables');
-        }
+        // if (!blobSasUrl) {
+        //   throw new Error('Azure Blob SAS URL not configured in environment variables');
+        // }
 
-        // ✅ FIXED: Changed from "audit-Audit%20Findings%20List.xlsx" to "Audit%20Findings%20List.xlsx"
-        const response = await fetch(`${blobSasUrl}/Audit%20Findings%20List.xlsx`);
+        // // ✅ FIXED: Changed from "audit-Audit%20Findings%20List.xlsx" to "Audit%20Findings%20List.xlsx"
+        // const response = await fetch(`${blobSasUrl}/Audit%20Findings%20List.xlsx`);
+        const containerUrl = import.meta.env.VITE_AZURE_BLOB_CONTAINER_URL;
+        const sasToken = import.meta.env.VITE_AZURE_BLOB_SAS_TOKEN;
+        const fileName = "Audit%20Findings%20List.xlsx";
+        const url = `${containerUrl}/${fileName}${sasToken}`;
+        const response = await fetch(url);
+
         
         if (!response.ok) {
           throw new Error(`Failed to fetch file: ${response.statusText}`);
