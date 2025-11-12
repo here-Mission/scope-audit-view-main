@@ -4,10 +4,7 @@ import path from "path";
 
 // Remove all references to LOVABLE or any branding plugin!
 export default defineConfig({
-  server: {
-    host: "::",
-    port: 8080,
-  },
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -15,3 +12,4 @@ export default defineConfig({
     },
   },
 });
+
